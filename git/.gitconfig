@@ -1,0 +1,42 @@
+[core]
+	# Linux gvim
+	editor = gvim -f
+	# Windows gvim
+	# editor = C:/Program\\ \\Files\\ \\(x86\\)/Vim/vim81/vim.exe
+	preloadindex = true
+	fscache = true
+	sshCommand = ssh
+[user]
+	name = Alexey Grant
+	email = aleksey@chabunin.com
+[merge]
+	tool = bc
+	conflictstyle = diff3
+[mergetool "bc"]
+	path = c:/Program Files/Beyond Compare 4/bcomp.exe
+[diff]
+	tool = bc
+[difftool "bc"]
+	path = c:/Program Files/Beyond Compare 4/bcomp.exe
+[alias]
+	addd = add .
+	ali = config --get-regexp alias
+    conflist = config --list
+    br = branch
+    bra = branch --all
+	ci = commit -m
+	cm = checkout master
+	co = checkout
+	cd = checkout develop
+	cm = checkout master
+	lg = log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %C(green)(%cr)%Creset %C(cyan)[%an]' --graph --all
+    rd = rebase develop
+	st = status --short --branch
+	stash0 = stash apply stash@{0}
+	stash1 = stash apply stash@{1}
+[rerere]
+	enabled = true
+[push]
+	default = current
+[fetch]
+	prune = true
