@@ -2,6 +2,8 @@
 ##!/usr/bin/zsh
 # baraction.sh for spectrwm status bar
 
+feh --no-startup-id --bg-fill Tools/Backgrounds/silver_lucky_four_leaf_clover-wallpaper-3440x1440.jpg
+
 ## DISK
 hdd() {
   hdd="$(df -h | awk 'NR==4{print $2, $3}')"
@@ -39,7 +41,6 @@ SLEEP_SEC=3
 # So I would love to add more functions to this script but it makes the 
 # echo output too long to display correctly.
 while :; do
-    echo "+@fg=1; $(cpu)| 💾$(mem)| $(hdd)| $(vol)|"
-    #echo "+@fg=1; +@fn=1;💻+@fn=0; $(cpu) +@fg=0; | +@fg=2; +@fn=1;💾+@fn=0; $(mem) +@fg=0; | +@fg=3; +@fn=1;💿+@fn=0; $(hdd) +@fg=0; | +@fg=4; +@fn=1;🔈+@fn=0; $(vol) +@fg=0; |"
+    echo "+@fg=1; +@fn=0;$(cpu)+@fg=0;| +@fg=2;+@fn=0;$(mem)+@fg=0;| +@fg=3;+@fn=0;$(hdd)+@fg=0;| +@fg=4;+@fn=0;$(vol)+@fg=0;|"
 	sleep $SLEEP_SEC
 done
