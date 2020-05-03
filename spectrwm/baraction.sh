@@ -2,18 +2,18 @@
 ##!/usr/bin/zsh
 # baraction.sh for spectrwm status bar
 
-feh --no-startup-id --bg-fill Tools/Backgrounds/silver_lucky_four_leaf_clover-wallpaper-3440x1440.jpg
+feh --bg-fill Tools/Backgrounds/milky-way-2695569_1920.jpg
 
 ## DISK
 hdd() {
-  hdd="$(df -h | awk 'NR==4{print $2, $3}')"
-  echo -e "HDD: $hdd"
+  hdd="$(df -h | awk 'NR==4{printf "%s/%s\n", $3, $2}')"
+  echo -e "SSD:$hdd"
 }
 
 ## RAM
 mem() {
   mem=`free --human --si | awk '/Mem/ {printf "%dG/%dG\n", $3, $2 }'`
-  echo -e "RAM: $mem"
+  echo -e "RAM:$mem"
 }
 
 ## CPU
@@ -24,13 +24,13 @@ cpu() {
   read cpu a b c idle rest < /proc/stat
   total=$((a+b+c+idle))
   cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-  echo -e "CPU: $cpu%"
+  echo -e "CPU:$cpu%"
 }
 
 ## VOLUME
 vol() {
     vol=`amixer get Master | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g'`
-    echo -e "VOL: $vol"
+    echo -e "VOL:$vol"
 }
 
 SLEEP_SEC=3
