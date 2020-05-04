@@ -2,8 +2,6 @@
 ##!/usr/bin/zsh
 # baraction.sh for spectrwm status bar
 
-feh --bg-fill Tools/Backgrounds/milky-way-2695569_1920.jpg
-
 ## DISK
 hdd() {
   hdd="$(df -h | awk 'NR==4{printf "%s/%s\n", $3, $2}')"
