@@ -1,2 +1,3 @@
 # Background Image for spectrwm
 feh --bg-fill ~/Tools/Backgrounds/milky-way-2695569_1920.jpg
+xscreensaver &
