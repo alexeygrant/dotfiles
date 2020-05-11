@@ -66,7 +66,7 @@ keys = [
     Key([mod, "control"], "p", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     # Key([mod], "r", lazy.spawncmd()),
-    Key([mod], "p", lazy.spawncmd()),
+    Key([mod], "p", lazy.spawn("dmenu_run")),
 
     # MonadTall layout
     Key([mod], "Left", lazy.layout.left()),
@@ -120,6 +120,13 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))
 
 
+layout_theme = {"border_width": 2,
+                "margin": 4,
+                "border_focus": "e1acff",
+                "border_normal": "1D2330"
+                }
+
+
 layouts = [
     layout.Max(),
     # layout.Stack(num_stacks=2),
@@ -127,14 +134,16 @@ layouts = [
     # layout.Bsp(),
     # layout.Columns(),
     layout.Matrix(
-        border_focus = '#0000ff',
-        border_width = 2,
+        # border_focus = '#0000ff',
+        # border_width = 2,
+        **layout_theme
     ),
     layout.MonadTall(
-        border_focus = '#00bb00',
-        border_normal = '#000000',
-        border_width = 3,
-        change_size = 20,
+        # border_focus = '#00aa00',
+        # border_normal = '#000000',
+        # border_width = 3,
+        # change_size = 20,
+        **layout_theme
     ),
     # layout.MonadWide(),
     # layout.RatioTile(),
