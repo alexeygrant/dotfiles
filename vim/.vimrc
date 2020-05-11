@@ -141,7 +141,11 @@ if has("win32")
     " set guifont=consolas:h10 " Font
     set guifont=InputMonoNarrow_Medium:h9 " Font
 else
-    set guifont=consolas\ 11 " Font
+    " set guifont=consolas\ 11 " Font
+    " set guifont=InputMonoNarrow\ Medium\ 10 " Font
+    " set guifont=InputMonoCondensed\ Medium\ 11 " Font
+    " set guifont=InputMonoNarrow\ 11 " Font
+    set guifont=JetBrains\ Mono\ \Medium\ 9 " Font
 endif
 
 
