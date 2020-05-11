@@ -178,9 +178,30 @@ bindsym $mod+p mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
-        mode hide
+        mode dock
         hidden_state hide
         modifier Mod1
         font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
         font pango:DejaVu Sans Mono 12
+        colors {
+            statusline #999999
+            separator #999999
+        }
 }
+
+# client example:
+# class                   border  backgr. text    indicator child_border
+  client.focused          #123456 #285577 #ffffff #2e9ef4   #990000
+#  client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+#  client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+#  client.urgent           #2f343a #900000 #ffffff #900000   #900000
+#  client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+#  client.background       #ffffff
+# end of color theme
+
+
+for_window [class=".*"] border pixel 4 
+
+# Move workspace to the next monitor
+bindsym $mod+c move workspace to output right
