@@ -133,11 +133,11 @@ layouts = [
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Columns(),
-    layout.Matrix(
+    # layout.Matrix(
         # border_focus = '#0000ff',
         # border_width = 2,
-        **layout_theme
-    ),
+        # **layout_theme
+    # ),
     layout.MonadTall(
         # border_focus = '#00aa00',
         # border_normal = '#000000',
