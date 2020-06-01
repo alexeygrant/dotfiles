@@ -41,13 +41,15 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec konsole
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+s exec dmenu_run
+# bindsym $mod+s exec dmenu_run
+bindsym $mod+p exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -84,12 +86,13 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+t fullscreen toggle
+# bindsym $mod+t fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+r layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+f layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+x layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -143,7 +146,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+p restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+f exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -169,10 +172,13 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+p mode "default"
+        bindsym $mod+r mode "default"
 }
 
-bindsym $mod+p mode "resize"
+bindsym $mod+r mode "resize"
+
+# Move workspace to the next monitor
+bindsym $mod+w move workspace to output right
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -191,17 +197,14 @@ bar {
 
 # client example:
 # class                   border  backgr. text    indicator child_border
-  client.focused          #123456 #285577 #ffffff #2e9ef4   #990000
-#  client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-#  client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-#  client.urgent           #2f343a #900000 #ffffff #900000   #900000
-#  client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
-#  client.background       #ffffff
+  client.focused          #0000FF #285577 #ffffff #2e9ef4   #5FD66F
+  client.focused_inactive #0000FF #5f676a #ffffff #484e50   #d65fc6
+  client.unfocused        #FFFFFF #FFFFFF #FFFFFF #FFFFFF   #777777
+  client.urgent           #0000FF #900000 #ffffff #900000   #900000
+  client.placeholder      #0000FF #0c0c0c #ffffff #000000   #0c0c0c
+  client.background       #ffffff
 # end of color theme
 
 
 for_window [class=".*"] border pixel 4 
 
-# Move workspace to the next monitor
-bindsym $mod+c move workspace to output right
