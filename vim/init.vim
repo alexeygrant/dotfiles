@@ -1,4 +1,6 @@
-﻿" Use Vim settings, rather then Vi settings (much better!).
+" source ~/.vimrc
+
+" Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 filetype off                    " required
@@ -112,6 +114,7 @@ if has("gui_running")
     set list
     "set list listchars=tab:\ \ ,trail:·
     set listchars=tab:\ \ ,trail:·,extends:#,nbsp:·
+elseif has("nvim")
 else
     set term=xterm
     set t_Co=256
@@ -138,14 +141,14 @@ set pastetoggle=<F2>
 
 " Font
 if has("win32")
-    " set guifont=consolas:h10 " Font
-    set guifont=InputMonoNarrow_Medium:h9 " Font
+    " set guifont=consolas:h11 " Font
+    " set guifont=InputMonoNarrow_Me_Mediumdium:h9 " Font
+    " set guifont=JetBrains_Mono_Medium:h16 " Font
+    set guifont=JetBrains_Mono_Medium:h9 " Font
+    " set guifont=JetBrains_Mono:h20 " Font
 else
     " set guifont=consolas\ 11 " Font
-    " set guifont=InputMonoNarrow\ Medium\ 10 " Font
-    " set guifont=InputMonoCondensed\ Medium\ 11 " Font
-    " set guifont=InputMonoNarrow\ 11 " Font
-    set guifont=JetBrains\ Mono\ \Medium\ 9 " Font
+    set guifont=JetBrains\ Mono\ Medium\ 11 " Font
 endif
 
 
@@ -222,3 +225,4 @@ nnoremap $ <nop>
 nnoremap ^ <nop>
 vnoremap $ <nop>
 vnoremap ^ <nop>
+

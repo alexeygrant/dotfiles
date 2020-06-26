@@ -1,8 +1,9 @@
 [core]
 	# Linux gvim
-	editor = gvim -f
+	editor = nvim -f
 	# Windows gvim
 	# editor = C:/Program\\ \\Files\\ \\(x86\\)/Vim/vim81/vim.exe
+	# editor = code --wait 
 	preloadindex = true
 	fscache = true
 	sshCommand = ssh
