@@ -29,44 +29,47 @@ from typing import List  # noqa: F401
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 
 mod = "mod1"
+terminal = guess_terminal()
 
 keys = [
     # Switch between windows in current stack pane
-    # Key([mod], "k", lazy.layout.down()),
-    Key([mod], "e", lazy.layout.down()),
-    # Key([mod], "j", lazy.layout.up()),
-    Key([mod], "n", lazy.layout.up()),
+    Key([mod], "k", lazy.layout.down(),
+        desc="Move focus down in stack pane"),
+    Key([mod], "j", lazy.layout.up(),
+        desc="Move focus up in stack pane"),
 
     # Move windows up or down in current stack
-    # Key([mod, "control"], "k", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "e", lazy.layout.shuffle_down()),
-    # Key([mod, "control"], "j", lazy.layout.shuffle_up()),
-    Key([mod, "control"], "n", lazy.layout.shuffle_up()),
+    Key([mod, "control"], "k", lazy.layout.shuffle_down(),
+        desc="Move window down in current stack "),
+    Key([mod, "control"], "j", lazy.layout.shuffle_up(),
+        desc="Move window up in current stack "),
 
     # Switch window focus to other pane(s) of stack
-    Key([mod], "space", lazy.layout.next()),
+    Key([mod], "space", lazy.layout.next(),
+        desc="Switch window focus to other pane(s) of stack"),
 
     # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate()),
+    # Key([mod, "shift"], "space", lazy.layout.rotate(),
+    #     desc="Swap panes of split stack"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.window.toggle_split()),
-    Key([mod], "Return", lazy.spawn("konsole")),
+    # Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
+    #     desc="Toggle between split and unsplit sides of stack"),
+    # Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "w", lazy.window.kill()),
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
-    # Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "p", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    # Key([mod], "r", lazy.spawncmd()),
-    Key([mod], "p", lazy.spawn("dmenu_run")),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
     # MonadTall layout
     Key([mod], "Left", lazy.layout.left()),
@@ -88,44 +91,24 @@ keys = [
     # Key([mod, "shift"], "space", lazy.layout.flip()),
     Key([mod, "shift"], "backslash", lazy.layout.flip()),
     Key([mod, "shift"], "f", lazy.window.toggle_floating()),
-    # Key([mod], "f", lazy.window.toggle_fullscreen()),
-    ### Switch focus of monitors
-    Key([mod], "period",
-        lazy.next_screen(),
-        desc='Move focus to next monitor'
-        ),
-    Key([mod], "comma",
-        lazy.prev_screen(),
-        desc='Move focus to prev monitor'
-        ),
-
-
 ]
 
-# groups = [Group(i) for i in "asdfuiop"]
-# groups = [Group(i) for i in "arst"]
+groups = [Group(i) for i in "1234"]
 
-group_names = [("WWW", {'layout': 'monadtall'}),
-               ("DEV", {'layout': 'monadtall'}),
-               ("SYS", {'layout': 'monadtall'}),
-               ("DOC", {'layout': 'monadtall'})]
+for i in groups:
+    keys.extend([
+        # mod1 + letter of group = switch to group
+        Key([mod], i.name, lazy.group[i.name].toscreen(),
+            desc="Switch to group {}".format(i.name)),
 
-
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
-
-for i, (name, kwargs) in enumerate(group_names, 1):
-    # Switch to another group
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))
-    # Send current window to another group
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))
-
-
-layout_theme = {"border_width": 2,
-                "margin": 4,
-                "border_focus": "e1acff",
-                "border_normal": "1D2330"
-                }
-
+        # mod1 + shift + letter of group = switch to & move focused window to group
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+            desc="Switch to & move focused window to group {}".format(i.name)),
+        # Or, use below if you prefer not to switch to that group.
+        # # mod1 + shift + letter of group = move focused window to group
+        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+        #     desc="move focused window to group {}".format(i.name)),
+    ])
 
 layouts = [
     layout.Max(),
@@ -133,18 +116,8 @@ layouts = [
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Columns(),
-    # layout.Matrix(
-        # border_focus = '#0000ff',
-        # border_width = 2,
-        # **layout_theme
-    # ),
-    layout.MonadTall(
-        # border_focus = '#00aa00',
-        # border_normal = '#000000',
-        # border_width = 3,
-        # change_size = 20,
-        **layout_theme
-    ),
+    # layout.Matrix(),
+    layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -154,21 +127,22 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Ubuntu',
-    fontsize=16,
+    font='sans',
+    fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.TextBox("Screen 1", name="default"),
+                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
                 widget.QuickExit(),
@@ -177,13 +151,14 @@ screens = [
         ),
     ),
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.TextBox("Screen 2", name="default"),
+                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
                 widget.QuickExit(),

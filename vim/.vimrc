@@ -221,4 +221,3 @@ vnoremap E $
 nnoremap $ <nop>
 nnoremap ^ <nop>
 vnoremap $ <nop>
-vnoremap ^ <nop>

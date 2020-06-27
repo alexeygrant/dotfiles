@@ -8,3 +8,6 @@ feh --bg-fill ~/Pictures/milky-way.jpg
 
 # Sound Volume
 amixer set Master 100%
+
+# Colemak layout
+setxkbmap us -variant colemak
