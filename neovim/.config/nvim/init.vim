@@ -2,20 +2,12 @@
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-set nocompatible
-filetype off                    " required
-set shortmess+=I
 set relativenumber              "Set relative line numbers
 set number                      "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
-set showcmd                     "Show incomplete cmds down the bottom
 set showmode                    "Show current mode down the bottom
 set cmdheight=2
 
 " autocommand
-au BufRead,BufNewFile *.config setfiletype xml
-au CursorHoldI * stopinsert
 set updatetime=5100
 
 " ================ Key bindings ====================
@@ -34,8 +26,6 @@ nnoremap <Leader>w :set wrap!<CR>
 " switch between cursor matches
 nnoremap <Leader>zz :let &matches=999-&matches<CR>
 
-set wildignore+=*/.hg/*
-
 " Moving one or more lines in the file with Alt
 nnoremap <A-Down> :m .+1<CR>
 nnoremap <A-Up> :m .-2<CR>
@@ -53,6 +43,8 @@ nnoremap <Space> za
 " vim-plug
 if has("win32")
     call plug#begin('$USERPROFILE/vimfiles/plugged/')
+elseif has("nvim")
+    call plug#begin('~/.local/share/nvim/site/autoload/')
 else
     call plug#begin('~/.vim/plugged/')
 endif
@@ -67,6 +59,7 @@ endif
     Plug 'junegunn/fzf.vim'
     Plug 'morhetz/gruvbox'
     Plug 'chriskempson/base16-vim'
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 set guicursor=n-v-cr:block-blinkwait1000-blinkon700-blinkoff300
@@ -77,10 +70,7 @@ set autoread
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
 " are you good enough to type very what about the hardcore mode? Or you are not good enough?aa
-set hidden
 
-"turn on syntax highlighting
-syntax on
 
 " colorscheme lucius
 " Light theme
@@ -123,19 +113,12 @@ else
 endif
 
 " Remember cursor position
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
-set wrap         "DO wrap lines
-
-set textwidth=0
 
 
 " ================ Scrolling ========================
 set scrolloff=0         "Start scrolling when we're 0 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
-
-set cursorline          "Visible current line
 
 set pastetoggle=<F2>
 
@@ -181,14 +164,11 @@ set nowb
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 
-set undodir=~/.vim/backups
 set undofile
 
 " ================ Indentation ======================
 
-set autoindent
 set smartindent
-set smarttab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
@@ -199,13 +179,14 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-scriptencoding utf-8
-set encoding=utf-8
 inoremap q <Esc>
 nnoremap q <Esc>
 vnoremap q <Esc>
 
 inoremap zz q
+
+nnoremap zz q
+vnoremap zz q
 " swap ; and ;
 nnoremap ; :
 nnoremap : ;
@@ -225,4 +206,37 @@ nnoremap $ <nop>
 nnoremap ^ <nop>
 vnoremap $ <nop>
 vnoremap ^ <nop>
+
+" nvim settings
+if has("nvim")
+endif
+
+" CoC settings
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
 
