@@ -66,22 +66,6 @@ set guicursor=n-v-cr:block-blinkwait1000-blinkon700-blinkoff300
 set guicursor+=i:ver15-blinkwait500-blinkon250-blinkoff250
 set guicursor+=c-ci:ver25
 set autoread
-" This makes vim  that's not real act like all other editors, buffers
-" exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
-" are you good enough to type very what about the hardcore mode? Or you are not good enough?aa
-
-
-" colorscheme lucius
-" Light theme
-" LuciusWhite
-" highlight LineNr       guibg=white
-" highlight CursorLineNr guibg=white
-" highlight CursorLine   guibg=#f2f2f2
-" highlight RedundantSpaces ctermbg=red
-
-" Dark theme
-" LuciusDark
 
 colorscheme gruvbox
 set background=dark

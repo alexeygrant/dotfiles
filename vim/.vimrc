@@ -145,7 +145,7 @@ else
     " set guifont=InputMonoNarrow\ Medium\ 10 " Font
     " set guifont=InputMonoCondensed\ Medium\ 11 " Font
     " set guifont=InputMonoNarrow\ 11 " Font
-    set guifont=JetBrains\ Mono\ \Medium\ 9 " Font
+    set guifont=JetBrains\ Mono\ \Medium\ 10 " Font
 endif
 
 
