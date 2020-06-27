@@ -124,14 +124,11 @@ set pastetoggle=<F2>
 
 " Font
 if has("win32")
-    " set guifont=consolas:h11 " Font
-    " set guifont=InputMonoNarrow_Me_Mediumdium:h9 " Font
-    " set guifont=JetBrains_Mono_Medium:h16 " Font
+    " set guifont=Consolas:h11 " Font
     set guifont=JetBrains_Mono_Medium:h9 " Font
-    " set guifont=JetBrains_Mono:h20 " Font
 else
-    " set guifont=consolas\ 11 " Font
-    set guifont=JetBrains\ Mono\ Medium\ 11 " Font
+    " set guifont=Ubuntu\ Mono\ 12 " Font
+    set guifont=JetBrains\ Mono\ Medium:h9 " Font
 endif
 
 
