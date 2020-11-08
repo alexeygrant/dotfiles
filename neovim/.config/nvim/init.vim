@@ -59,7 +59,7 @@ endif
     Plug 'junegunn/fzf.vim'
     Plug 'morhetz/gruvbox'
     Plug 'chriskempson/base16-vim'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 set guicursor=n-v-cr:block-blinkwait1000-blinkon700-blinkoff300
